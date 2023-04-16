@@ -1,4 +1,4 @@
-package hugo.almoxarifado.cadastros;
+package hugo.almoxarifado.Modulos;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

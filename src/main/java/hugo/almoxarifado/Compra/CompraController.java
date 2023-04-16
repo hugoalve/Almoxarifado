@@ -1,4 +1,4 @@
-package hugo.almoxarifado.controllers;
+package hugo.almoxarifado.Compra;
 
 import java.util.List;
 
@@ -9,24 +9,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import hugo.almoxarifado.cadastros.AlmoxarifadoProdutos;
-import hugo.almoxarifado.service.ServiceAlmoxarifadoProduto;
+import hugo.almoxarifado.Modulos.Compra;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/entradaProduto")
-public class AlmoxarifadoProdutosController {
+public class CompraController {
 
     @Autowired
-    private ServiceAlmoxarifadoProduto serviceAlmoxarifadoProduto;
+    private ServiceCompra serviceAlmoxarifadoProduto;
 
     @GetMapping
-    public List<AlmoxarifadoProdutos> findAll() {
+    public List<Compra> findAll() {
         return serviceAlmoxarifadoProduto.findAll();
     }
 
     @PostMapping
-    public AlmoxarifadoProdutos create(@Valid @RequestBody AlmoxarifadoProdutos almoxarifadoProdutos) {
+    public Compra create(@Valid @RequestBody Compra almoxarifadoProdutos) {
         return serviceAlmoxarifadoProduto.create(almoxarifadoProdutos);
     }
 

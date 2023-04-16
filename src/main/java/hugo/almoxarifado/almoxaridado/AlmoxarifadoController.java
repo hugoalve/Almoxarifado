@@ -1,4 +1,4 @@
-package hugo.almoxarifado.controllers;
+package hugo.almoxarifado.almoxaridado;
 
 import java.util.List;
 
@@ -9,23 +9,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import hugo.almoxarifado.cadastros.Produto;
-import hugo.almoxarifado.service.ServiceProduto;
+import hugo.almoxarifado.Modulos.Almoxarifado;
 
 @RestController
-@RequestMapping(value = "/produto")
-public class ProdutoController {
+@RequestMapping(value = "/almoxarifado")
+public class AlmoxarifadoController {
 
     @Autowired
-    private ServiceProduto service;
+    private ServiceAlmoxarifado service;
 
     @GetMapping
-    public List<Produto> findAll() {
-        return service.listarProdutos();
+    public List<Almoxarifado> findAll() {
+        return service.findAll();
     }
 
     @PostMapping
-    public Produto insert(@RequestBody Produto produto) {
-        return service.insert(produto);
+    public Almoxarifado insert(@RequestBody Almoxarifado almoxarifado) {
+        return service.insert(almoxarifado);
     }
+
 }

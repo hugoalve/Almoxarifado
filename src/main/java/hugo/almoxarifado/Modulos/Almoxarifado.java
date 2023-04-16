@@ -1,4 +1,4 @@
-package hugo.almoxarifado.cadastros;
+package hugo.almoxarifado.Modulos;
 
 import java.util.List;
 
@@ -19,10 +19,10 @@ public class Almoxarifado {
     private String nome;
 
     @OneToMany(mappedBy = "almoxarifado")
-    private List<AlmoxarifadoProdutos> almoxarifadoProdutos;
+    private List<Compra> almoxarifadoProdutos;
 
     public void addProduto(Produto produto, int quantidade) {
-        AlmoxarifadoProdutos almoxarifadoProduto = new AlmoxarifadoProdutos(this, produto, quantidade);
+        Compra almoxarifadoProduto = new Compra(this, produto, quantidade);
         almoxarifadoProdutos.add(almoxarifadoProduto);
     }
 
@@ -42,11 +42,11 @@ public class Almoxarifado {
         this.nome = nome;
     }
 
-    public List<AlmoxarifadoProdutos> getAlmoxarifadoProdutos() {
+    public List<Compra> getAlmoxarifadoProdutos() {
         return almoxarifadoProdutos;
     }
 
-    public void setAlmoxarifadoProdutos(List<AlmoxarifadoProdutos> almoxarifadoProdutos) {
+    public void setAlmoxarifadoProdutos(List<Compra> almoxarifadoProdutos) {
         this.almoxarifadoProdutos = almoxarifadoProdutos;
     }
 }

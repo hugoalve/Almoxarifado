@@ -1,4 +1,4 @@
-package hugo.almoxarifado.cadastros;
+package hugo.almoxarifado.Modulos;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class AlmoxarifadoProdutos {
+public class Compra {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class AlmoxarifadoProdutos {
     @NotNull
     private int quantidade;
 
-    public AlmoxarifadoProdutos(Almoxarifado almoxarifado, Produto produto, int quantidade) {
+    public Compra(Almoxarifado almoxarifado, Produto produto, int quantidade) {
         this.almoxarifado = almoxarifado;
         this.produto = produto;
         this.quantidade = quantidade;
