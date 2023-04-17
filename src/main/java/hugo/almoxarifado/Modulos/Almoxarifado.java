@@ -1,12 +1,10 @@
 package hugo.almoxarifado.Modulos;
 
-import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -17,13 +15,25 @@ public class Almoxarifado {
 
     @NotNull
     private String nome;
+    @NotNull
+    private String gestao;
+    @NotNull
+    private String local;
 
-    @OneToMany(mappedBy = "almoxarifado")
-    private List<Compra> almoxarifadoProdutos;
+    public String getGestao() {
+        return gestao;
+    }
 
-    public void addProduto(Produto produto, int quantidade) {
-        Compra almoxarifadoProduto = new Compra(this, produto, quantidade);
-        almoxarifadoProdutos.add(almoxarifadoProduto);
+    public void setGestao(String gestao) {
+        this.gestao = gestao;
+    }
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
     }
 
     public Long getId() {
@@ -42,11 +52,4 @@ public class Almoxarifado {
         this.nome = nome;
     }
 
-    public List<Compra> getAlmoxarifadoProdutos() {
-        return almoxarifadoProdutos;
-    }
-
-    public void setAlmoxarifadoProdutos(List<Compra> almoxarifadoProdutos) {
-        this.almoxarifadoProdutos = almoxarifadoProdutos;
-    }
 }

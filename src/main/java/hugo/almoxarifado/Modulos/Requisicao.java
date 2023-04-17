@@ -12,6 +12,8 @@ public class Requisicao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private int quantidadeSolicitada;
+
     public Long getId() {
         return id;
     }
@@ -20,4 +22,11 @@ public class Requisicao {
         this.id = id;
     }
 
+    public int getQuantidadeSolicitada() {
+        return quantidadeSolicitada;
+    }
+
+    public void setQuantidadeSolicitada(int quantidadeSolicitada) {
+        this.quantidadeSolicitada = quantidadeSolicitada;
+    }
 }

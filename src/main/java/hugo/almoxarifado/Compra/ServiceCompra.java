@@ -5,29 +5,32 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import hugo.almoxarifado.Modulos.Almoxarifado;
 import hugo.almoxarifado.Modulos.Compra;
+import hugo.almoxarifado.Modulos.Produto;
+import hugo.almoxarifado.almoxaridado.AlmoxarifadoRepository;
+import hugo.almoxarifado.produto.ProdutoRepository;
 
 @Service
 public class ServiceCompra {
 
     @Autowired
     private CompraRepository compraRepository;
+    @Autowired
+    private ProdutoRepository produtoRepository;
+    @Autowired
+    private AlmoxarifadoRepository almoxarifadoRepository;
 
     public List<Compra> findAll() {
         return compraRepository.findAll();
     }
 
-    public Compra create(Compra almoxarifadoProdutos) {
-        if (almoxarifadoProdutos.getAlmoxarifado() == null) {
-            throw new IllegalArgumentException("O campo Almoxarifado não pode ser nulo");
-        }
-        if (almoxarifadoProdutos.getProduto() == null) {
-            throw new IllegalArgumentException("O campo Produto não pode ser nulo");
-        }
-        if (almoxarifadoProdutos.getQuantidade() <= 0) {
-            throw new IllegalArgumentException("A quantidade deve ser maior que zero");
-        }
-        return compraRepository.save(almoxarifadoProdutos);
+    public Compra create(Compra compra) {
+        Almoxarifado almoxarifado = almoxarifadoRepository.findById(compra.getAlmoxarifado().getId()).orElseThrow();
+        Produto produto = produtoRepository.findById(compra.getProduto().getId()).orElseThrow();
+        compra.setAlmoxarifado(almoxarifado);
+        compra.setProduto(produto);
+        return compraRepository.save(compra);
     }
 
 }

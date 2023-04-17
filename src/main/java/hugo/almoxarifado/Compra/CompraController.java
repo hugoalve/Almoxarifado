@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import hugo.almoxarifado.Modulos.Compra;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/entradaProduto")
@@ -25,8 +24,8 @@ public class CompraController {
     }
 
     @PostMapping
-    public Compra create(@Valid @RequestBody Compra almoxarifadoProdutos) {
-        return serviceCompra.create(almoxarifadoProdutos);
+    public Compra create(@RequestBody Compra compra) {
+        return serviceCompra.create(compra);
     }
 
 }

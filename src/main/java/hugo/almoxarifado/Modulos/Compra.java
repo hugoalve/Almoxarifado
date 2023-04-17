@@ -28,9 +28,11 @@ public class Compra {
     @NotNull
     private int quantidade;
 
-    public Compra(Almoxarifado almoxarifado, Produto produto, int quantidade) {
-        this.almoxarifado = almoxarifado;
-        this.produto = produto;
+    public Compra(Long idAlmoxarifado, Long idProduto, int quantidade) {
+        this.almoxarifado = new Almoxarifado();
+        this.almoxarifado.setId(idAlmoxarifado);
+        this.produto = new Produto();
+        this.produto.setId(idProduto);
         this.quantidade = quantidade;
     }
 
@@ -66,4 +68,11 @@ public class Compra {
         this.quantidade = quantidade;
     }
 
+    public Long getIdAlmoxarifado() {
+        return this.almoxarifado.getId();
+    }
+
+    public Long getIdProduto() {
+        return this.produto.getId();
+    }
 }
