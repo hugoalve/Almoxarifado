@@ -17,16 +17,16 @@ import jakarta.validation.Valid;
 public class CompraController {
 
     @Autowired
-    private ServiceCompra serviceAlmoxarifadoProduto;
+    private ServiceCompra serviceCompra;
 
     @GetMapping
     public List<Compra> findAll() {
-        return serviceAlmoxarifadoProduto.findAll();
+        return serviceCompra.findAll();
     }
 
     @PostMapping
     public Compra create(@Valid @RequestBody Compra almoxarifadoProdutos) {
-        return serviceAlmoxarifadoProduto.create(almoxarifadoProdutos);
+        return serviceCompra.create(almoxarifadoProdutos);
     }
 
 }
