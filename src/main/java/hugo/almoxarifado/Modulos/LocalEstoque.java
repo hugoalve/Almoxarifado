@@ -1,55 +1,92 @@
 package hugo.almoxarifado.Modulos;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
+
+@Entity
 public class LocalEstoque {
 
-    private Compra compra;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private Long local;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "Id_Almoxerifado")
+    private Almoxarifado almoxarifado;
 
-    private Long quantidadeEstoque;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "Id_produto")
+    private Produto produto;
 
-    private Long codigoProduto;
+    @NotNull
+    private int quantidade;
 
-    private String descricao;
-
-    public Long getLocal() {
-        return local;
+    public LocalEstoque(Long idAlmoxarifado, Long idProduto, int quantidade) {
+        this.almoxarifado = new Almoxarifado();
+        this.almoxarifado.setId(idAlmoxarifado);
+        this.produto = new Produto();
+        this.produto.setId(idProduto);
+        this.quantidade = quantidade;
     }
 
-    public void setLocal(Long local) {
-        this.local = local;
+    public Long getId() {
+        return id;
     }
 
-    public Long getQuantidadeEstoque() {
-        return quantidadeEstoque;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setQuantidadeEstoque(Long quantidadeEstoque) {
-        this.quantidadeEstoque = quantidadeEstoque;
+    public Almoxarifado getAlmoxarifado() {
+        return almoxarifado;
     }
 
-    public Long getCodigoProduto() {
-        return codigoProduto;
+    public void setAlmoxarifado(Almoxarifado almoxarifado) {
+        this.almoxarifado = almoxarifado;
     }
 
-    public void setCodigoProduto(Long codigoProduto) {
-        this.codigoProduto = codigoProduto;
+    public Produto getProduto() {
+        return produto;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public int getQuantidade() {
+        return quantidade;
     }
 
-    public Compra getCompra() {
-        return compra;
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
-    public void setCompra(Compra compra) {
-        this.compra = compra;
+    public Long getIdAlmoxarifado() {
+        return this.almoxarifado.getId();
     }
 
+    public Long getIdProduto() {
+        return this.produto.getId();
+    }
+
+    public void adicionarProduto(int quantidade) {
+        this.quantidade += quantidade;
+    }
+
+    public void removerProduto(int quantidade) {
+        this.quantidade -= quantidade;
+    }
+
+    public void mostrarEstoque() {
+        System.out.println("Almoxarifado: " + this.almoxarifado.getNome());
+        System.out.println("Produto: " + this.produto.getNome());
+        System.out.println("Quantidade: " + this.quantidade);
+    }
 }

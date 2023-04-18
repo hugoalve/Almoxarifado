@@ -15,14 +15,14 @@ public class Compra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "Id_Almoxerifado")
-    @NotNull
     private Almoxarifado almoxarifado;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "Id_produto")
-    @NotNull
     private Produto produto;
 
     @NotNull
@@ -75,4 +75,12 @@ public class Compra {
     public Long getIdProduto() {
         return this.produto.getId();
     }
+
+    public void atualizarLocalEstoque(LocalEstoque localEstoque) {
+        if (localEstoque != null && localEstoque.getAlmoxarifado().equals(this.almoxarifado)
+                && localEstoque.getProduto().equals(this.produto)) {
+            localEstoque.adicionarProduto(this.quantidade);
+        }
+    }
+
 }

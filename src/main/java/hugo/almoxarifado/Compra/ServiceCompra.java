@@ -9,6 +9,7 @@ import hugo.almoxarifado.Modulos.Almoxarifado;
 import hugo.almoxarifado.Modulos.Compra;
 import hugo.almoxarifado.Modulos.Produto;
 import hugo.almoxarifado.almoxaridado.AlmoxarifadoRepository;
+import hugo.almoxarifado.localEstoque.LocalEstoqueService;
 import hugo.almoxarifado.produto.ProdutoRepository;
 
 @Service
@@ -20,6 +21,8 @@ public class ServiceCompra {
     private ProdutoRepository produtoRepository;
     @Autowired
     private AlmoxarifadoRepository almoxarifadoRepository;
+    @Autowired
+    private LocalEstoqueService localEstoqueService;
 
     public List<Compra> findAll() {
         return compraRepository.findAll();
@@ -30,7 +33,10 @@ public class ServiceCompra {
         Produto produto = produtoRepository.findById(compra.getProduto().getId()).orElseThrow();
         compra.setAlmoxarifado(almoxarifado);
         compra.setProduto(produto);
-        return compraRepository.save(compra);
+        Compra compraCriada = compraRepository.save(compra);
+        localEstoqueService.atualizarLocalEstoque(produto, almoxarifado, compra.getQuantidade());
+        return compraCriada;
+
     }
 
 }
