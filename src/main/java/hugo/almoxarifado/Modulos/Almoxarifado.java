@@ -20,6 +20,10 @@ public class Almoxarifado {
     @NotNull
     private String local;
 
+    public Almoxarifado(){
+
+    }
+
     public String getGestao() {
         return gestao;
     }

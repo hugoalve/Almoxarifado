@@ -2,6 +2,7 @@ package hugo.almoxarifado.Compra;
 
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +29,15 @@ public class ServiceCompra {
         return compraRepository.findAll();
     }
 
-    public Compra create(Compra compra) {
-        Almoxarifado almoxarifado = almoxarifadoRepository.findById(compra.getAlmoxarifado().getId()).orElseThrow();
-        Produto produto = produtoRepository.findById(compra.getProduto().getId()).orElseThrow();
+    public Compra create(@NotNull Compra compra) {
+        Almoxarifado almoxarifado = almoxarifadoRepository.findById(compra.getAlmoxarifado().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Almoxarifado não encontrado com o ID informado"));
+        Produto produto = produtoRepository.findById(compra.getProduto().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado com o ID informado"));
         compra.setAlmoxarifado(almoxarifado);
         compra.setProduto(produto);
         Compra compraCriada = compraRepository.save(compra);
-        localEstoqueService.atualizarLocalEstoque(produto, almoxarifado, compra.getQuantidade());
+        localEstoqueService.somarLocalEstoque(produto, almoxarifado, compra.getQuantidade());
         return compraCriada;
 
     }

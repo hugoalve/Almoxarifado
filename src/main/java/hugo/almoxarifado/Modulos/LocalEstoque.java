@@ -28,6 +28,9 @@ public class LocalEstoque {
     @NotNull
     private int quantidade;
 
+    public LocalEstoque() {
+    }
+
     public LocalEstoque(Long idAlmoxarifado, Long idProduto, int quantidade) {
         this.almoxarifado = new Almoxarifado();
         this.almoxarifado.setId(idAlmoxarifado);
@@ -84,9 +87,4 @@ public class LocalEstoque {
         this.quantidade -= quantidade;
     }
 
-    public void mostrarEstoque() {
-        System.out.println("Almoxarifado: " + this.almoxarifado.getNome());
-        System.out.println("Produto: " + this.produto.getNome());
-        System.out.println("Quantidade: " + this.quantidade);
-    }
 }

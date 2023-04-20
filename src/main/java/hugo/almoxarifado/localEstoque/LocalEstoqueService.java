@@ -24,18 +24,36 @@ public class LocalEstoqueService {
         return repository.findByProdutoAndAlmoxarifado(produto, almoxarifado);
     }
 
-    public LocalEstoque atualizarLocalEstoque(Produto produto, Almoxarifado almoxarifado, Integer quantidade) {
+    public LocalEstoque somarLocalEstoque(Produto produto, Almoxarifado almoxarifado, Integer quantidadeCompra) {
         Optional<LocalEstoque> optionalLocalEstoque = repository.findByProdutoAndAlmoxarifado(produto, almoxarifado);
         if (optionalLocalEstoque.isPresent()) {
             LocalEstoque localEstoque = optionalLocalEstoque.get();
-            localEstoque.setQuantidade(quantidade);
+            Integer novaQuantidade = localEstoque.getQuantidade() + quantidadeCompra;
+            localEstoque.setQuantidade(novaQuantidade);
             return repository.save(localEstoque);
         } else {
-            LocalEstoque localEstoque = new LocalEstoque(null, null, 0);
-            localEstoque.setProduto(produto);
-            localEstoque.setAlmoxarifado(almoxarifado);
-            localEstoque.setQuantidade(quantidade);
+            LocalEstoque novoLocalEstoque = new LocalEstoque(null, null, 0);
+            novoLocalEstoque.setProduto(produto);
+            novoLocalEstoque.setAlmoxarifado(almoxarifado);
+            novoLocalEstoque.setQuantidade(quantidadeCompra);
+            return repository.save(novoLocalEstoque);
+        }
+    }
+
+    public LocalEstoque reduzirLocalEstoque(Produto produto, Almoxarifado almoxarifado, Integer quantidadeCompra) {
+        Optional<LocalEstoque> optionalLocalEstoque = repository.findByProdutoAndAlmoxarifado(produto, almoxarifado);
+        if (optionalLocalEstoque.isPresent()) {
+            LocalEstoque localEstoque = optionalLocalEstoque.get();
+            if (localEstoque.getQuantidade() < quantidadeCompra) {
+                throw new IllegalArgumentException("Quantidade insuficiente no estoque.");
+            }
+            Integer novaQuantidade = localEstoque.getQuantidade() - quantidadeCompra;
+            localEstoque.setQuantidade(novaQuantidade);
+
             return repository.save(localEstoque);
+        } else {
+            throw new IllegalArgumentException(
+                    "Local de estoque não encontrado para o produto e almoxarifado informados.");
         }
     }
 

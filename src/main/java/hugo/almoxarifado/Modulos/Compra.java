@@ -76,11 +76,4 @@ public class Compra {
         return this.produto.getId();
     }
 
-    public void atualizarLocalEstoque(LocalEstoque localEstoque) {
-        if (localEstoque != null && localEstoque.getAlmoxarifado().equals(this.almoxarifado)
-                && localEstoque.getProduto().equals(this.produto)) {
-            localEstoque.adicionarProduto(this.quantidade);
-        }
-    }
-
 }
