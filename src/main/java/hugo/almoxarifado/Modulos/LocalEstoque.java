@@ -79,12 +79,4 @@ public class LocalEstoque {
         return this.produto.getId();
     }
 
-    public void adicionarProduto(int quantidade) {
-        this.quantidade += quantidade;
-    }
-
-    public void removerProduto(int quantidade) {
-        this.quantidade -= quantidade;
-    }
-
 }
